@@ -2,7 +2,10 @@
 
 require 'config.php';
 
-if(isset($_GET['email']) && isset($_GET['verify_code']))
+
+// email verification
+
+if(isset($_GET['email']) && isset($_GET['verify_code']))      
 {
     $email = $_GET['email'];
     $verify = $_GET['verify_code'];
@@ -13,10 +16,10 @@ if(isset($_GET['email']) && isset($_GET['verify_code']))
     {
         if(mysqli_num_rows($result) > 0){
             $row = mysqli_fetch_array($result);
-            if($row['is_verify'] == 0)
+            if($row['is_verify'] == 0)                                                                          // check is email alreay verified or not
             {
                 $email = $row['email'];
-                $query1 = "update user set is_verify = '1' where email = '$email'";
+                $query1 = "update user set is_verify = '1' where email = '$email'";                             // update email
                 if(mysqli_query($conn,$query1)){
                     echo '<div class="alert alert-primary" role="alert">
                     Email verification successful

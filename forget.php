@@ -16,14 +16,14 @@ function sendMail($email, $reset_token)
     $phpmailer = new PHPMailer(true);
 
 try {
-    
-    // $phpmailer = new PHPMailer();
+
     $phpmailer->isSMTP();
     $phpmailer->Host = 'sandbox.smtp.mailtrap.io';
     $phpmailer->SMTPAuth = true;
     $phpmailer->Port = 2525;
     $phpmailer->Username = 'username';
     $phpmailer->Password = 'password';
+    // $phpmailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
 
     //Recipients
     $phpmailer->setFrom('email', 'VIP WEB');
@@ -46,12 +46,13 @@ try {
 
 }
 
+//check the button is pressed or not
 
 if (isset($_POST['reset-password'])) {
 
     $email = $_POST['email'];
 
-    if (empty($email)) {
+    if (empty($email)) {                                                    //validate the email
         echo '<div class="alert alert-danger" role="alert">
                 Email Required
                 </div>';
@@ -60,11 +61,11 @@ if (isset($_POST['reset-password'])) {
         $result = mysqli_query($conn, $query);
         if ($result) {
             if (mysqli_num_rows($result) > 0) {
-                $reset_token = bin2hex(random_bytes(16));
+                $reset_token = bin2hex(random_bytes(16));       //generate a random string
                 date_default_timezone_set('Asia/kolkata');
                 $date = date('Y-m-d');
                 echo $date;
-                $query1 = "UPDATE `user` SET `reset_token`='$reset_token',`token_expire`='$date' WHERE email = '$email'";
+                $query1 = "UPDATE `user` SET `reset_token`='$reset_token',`token_expire`='$date' WHERE email = '$email'";    //update the email with the reset token 
                 if (mysqli_query($conn, $query1) && sendMail($email,$reset_token)) {
                     echo '<div class="alert alert-danger" role="alert">
                 Password Reset Link Send to email

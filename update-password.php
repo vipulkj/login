@@ -13,9 +13,9 @@ $resettoken = $_GET['reset_token'];
 
 if (isset($_GET['email']) && isset($_GET['reset_token'])) {
 
-    date_default_timezone_set('Asia/kolkata');
+    date_default_timezone_set('Asia/kolkata');                                     // set timezone                                     
     $date = date('Y-m-d');
-    $query = "select * from user where email = '$email' AND reset_token ='$resettoken' AND token_expire = '$date'";
+    $query = "select * from user where email = '$email' AND reset_token ='$resettoken' AND token_expire = '$date'";           // select user values if has reset_token
     $result = mysqli_query($conn, $query);
     if ($result) {
         if (mysqli_num_rows($result) > 0) {

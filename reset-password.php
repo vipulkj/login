@@ -10,8 +10,8 @@ if(isset($_POST['update']))
     $email = $_SESSION['email'];
     $password = $_POST['password'];
     $inc_pass = md5($password);
-    $query = "UPDATE `user` SET `password`='$inc_pass',`reset_token`='null',`token_expire`='null' WHERE email = '$email'";
-    $result = mysqli_query($conn,$query);
+    $query = "UPDATE `user` SET `password`='$inc_pass',`reset_token`='null',`token_expire`='null' WHERE email = '$email'";      // update password
+    $result = mysqli_query($conn,$query);                                                                                       // and reset the token value
     if($result){
         echo '<div class="alert alert-primary" role="alert">
         password updated successfully

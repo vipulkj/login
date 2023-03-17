@@ -15,7 +15,6 @@ function sendMail($email, $verify_code)
 
     try {
 
-        // $mail = new PHPMailer();
         $mail->isSMTP();
         $mail->Host = 'sandbox.smtp.mailtrap.io';
         $mail->SMTPAuth = true;
